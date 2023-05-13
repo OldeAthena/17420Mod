@@ -1,0 +1,142 @@
+//Broadcast NPC
+prontera,159,181,5	script	Broadcaster	858,{
+
+if (.delay > gettimetick(2)) {
+    mes "=============================";
+	mes "Wait for 2 minutes to pass before you can use this service again.";
+	mes "=============================";
+    close;
+}
+
+mes "=============================";
+mes "Broadcast Fee:";
+mes "Normal Color(white): 90,000z";
+mes "Custom Color: 150,000z";
+mes "Random Color: 100,000z";
+mes "=============================";
+mes "Cooldown: 2 minutes";
+mes "=============================";
+menu "Broadcast",yes,"Cancel",no;
+
+	yes:
+	if(Zeny < 100000) goto nozeny;
+	next;
+	mes "=============================";
+	mes "Select broadcast type:";
+	mes "=============================";
+	menu "Normal",normal,"Custom Color",custom,"Random Color",random,"Cancel",-;
+	next;
+	mes "=============================";
+	mes "Broadcast Cancelled.";
+	mes "=============================";
+	close;
+
+		normal:
+		next;
+		mes "=============================";
+		mes "Input message:";
+		mes "=============================";
+		input @message$;
+		set Zeny,Zeny-90000;
+		announce "[Shout] "+strcharinfo(0)+": "+@message$+" ",bc_all,0xFFFFFF;
+		set .delay, gettimetick(2) + 120;
+		close;
+		
+		custom:
+		next;
+		mes "=============================";
+		mes "Input Color:";
+		mes "^ffffff.^000000";
+		mes "Format: ^ff0000XX^00ff00YY^0000ffZZ^000000";
+		mes "VALUES MUST BE 0123456789ABCDEF ONLY";
+		mes "=============================";
+		input @color$;
+		if(getstrlen(@color$) == 6) {
+			set @scolor$,substr(""+@color$+"", 0,5);
+			set .z1$,substr(""+@scolor$+"", 0,0);
+			set .z2$,substr(""+@scolor$+"", 1,1);
+			set .z3$,substr(""+@scolor$+"", 2,2);
+			set .z4$,substr(""+@scolor$+"", 3,3);
+			set .z5$,substr(""+@scolor$+"", 4,4);
+			set .z6$,substr(""+@scolor$+"", 5,5);
+			next;
+			if( .z1$ == "1" || .z1$ == "2" || .z1$ == "3" || .z1$ == "4" || .z1$ == "5" || .z1$ == "6" || .z1$ == "7" || .z1$ == "8" || .z1$ == "9" || .z1$ == "0" || .z1$ == "a" || .z1$ == "b" || .z1$ == "c" || .z1$ == "d" || .z1$ == "e" || .z1$ == "f" )
+			
+			{if( .z2$ == "1" || .z2$ == "2" || .z2$ == "3" || .z2$ == "4" || .z2$ == "5" || .z2$ == "6" || .z2$ == "7" || .z2$ == "8" || .z2$ == "9" || .z2$ == "0" || .z2$ == "a" || .z2$ == "b" || .z2$ == "c" || .z2$ == "d" || .z2$ == "e" || .z2$ == "f" )
+			
+			{if( .z3$ == "1" || .z3$ == "2" || .z3$ == "3" || .z3$ == "4" || .z3$ == "5" || .z3$ == "6" || .z3$ == "7" || .z3$ == "8" || .z3$ == "9" || .z3$ == "0" || .z3$ == "a" || .z3$ == "b" || .z3$ == "c" || .z3$ == "d" || .z3$ == "e" || .z3$ == "f" )
+			
+			{if( .z4$ == "1" || .z4$ == "2" || .z4$ == "3" || .z4$ == "4" || .z4$ == "5" || .z4$ == "6" || .z4$ == "7" || .z4$ == "8" || .z4$ == "9" || .z4$ == "0" || .z4$ == "a" || .z4$ == "b" || .z4$ == "c" || .z4$ == "d" || .z4$ == "e" || .z4$ == "f" )
+			
+			{if( .z5$ == "1" || .z5$ == "2" || .z5$ == "3" || .z5$ == "4" || .z5$ == "5" || .z5$ == "6" || .z5$ == "7" || .z5$ == "8" || .z5$ == "9" || .z5$ == "0" || .z5$ == "a" || .z5$ == "b" || .z5$ == "c" || .z5$ == "d" || .z5$ == "e" || .z5$ == "f" )
+			
+			{if( .z6$ == "1" || .z6$ == "2" || .z6$ == "3" || .z6$ == "4" || .z6$ == "5" || .z6$ == "6" || .z6$ == "7" || .z6$ == "8" || .z6$ == "9" || .z6$ == "0" || .z6$ == "a" || .z6$ == "b" || .z6$ == "c" || .z6$ == "d" || .z6$ == "e" || .z6$ == "f" )
+									goto zcustom;} else { goto xcustom; }} else { goto xcustom; }} else { goto xcustom; }} else { goto xcustom; }}
+				
+
+				
+			else { goto xcustom; }
+			
+
+			close; }
+		else { goto xcustom; }
+		close;
+
+		random:
+		next;
+		set .random1, rand(0,15);
+		set .random2, rand(0,15);
+		set .random3, rand(0,15);
+		set .random4, rand(0,15);
+		set .random5, rand(0,15);
+		set .random6, rand(0,15);
+		set .c1$, charat("1234567890abcdef", .random1);
+		set .c2$, charat("1234567890abcdef", .random2);
+		set .c3$, charat("1234567890abcdef", .random3);
+		set .c4$, charat("1234567890abcdef", .random4);
+		set .c5$, charat("1234567890abcdef", .random5);
+		set .c6$, charat("1234567890abcdef", .random6);
+		mes "=============================";
+		mes "Your message will be in RANDOM COLOR";
+		mes "Input message:";
+		mes "=============================";
+		input @message$;
+		set Zeny,Zeny-100000;
+		atcommand "@kamic "+.c1$+""+.c2$+""+.c3$+""+.c4$+""+.c5$+""+.c6$+" [Shout] "+strcharinfo(0)+": "+@message$+" ";
+		set .delay, gettimetick(2) + 120;
+		close;
+
+	no:
+	next;
+	mes "=============================";
+	mes "Broadcast Cancelled";
+	mes "=============================";
+	close;
+	
+	zcustom:
+	next;
+	mes "=============================";
+	mes "Input message:";
+	mes "=============================";
+	input @message$;
+	set Zeny,Zeny-150000;
+	atcommand "@kamic "+@scolor$+" [Shout] "+strcharinfo(0)+": "+@message$+" ";
+	set .delay, gettimetick(2) + 120;
+	close;
+	
+	xcustom:
+	next;
+	mes "=============================";
+	mes "Wrong Format.";
+	mes "=============================";
+	close;
+
+	nozeny:
+	next;
+	mes "=============================";
+	mes "Not enough Zeny";
+	mes "=============================";
+	close;
+
+	end;
+}
